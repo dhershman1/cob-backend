@@ -18,7 +18,7 @@ async function routes (server, options) {
 
   server.post('/login', async (req, reply) => {
     const details = await server.knex('users')
-      .select('username', 'password')
+      .select('id', 'username', 'password')
       .where('username', req.body.username)
       .first()
 
@@ -34,6 +34,7 @@ async function routes (server, options) {
 
     if (match) {
       req.session.authenticated = true
+      req.session.user = details.id
       return {
         OK: true
       }

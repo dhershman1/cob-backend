@@ -11,6 +11,7 @@ import 'dotenv/config'
 import auth from './routes/auth.js'
 import knex from './plugins/database.js'
 import users from './routes/user.js'
+import blueprints from './routes/blueprints.js'
 
 const fastify = Fastify({
   logger: true
@@ -19,7 +20,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 fastify.register(cookie)
 fastify.register(session, {
-  secret: process.env.APP_SECRET
+  cookieName: 'sessionId',
+  secret: process.env.APP_SECRET,
+  cookie: {
+    secure: false
+  }
 })
 
 fastify.register(knex, {
@@ -44,11 +49,8 @@ fastify.register(serve, {
 
 fastify.register(auth)
 fastify.register(users)
+fastify.register(blueprints)
 
-fastify.get('/test', async (req, reply) => {
-  console.log(req.session.authenticated)
-  return { OK: true }
-})
 fastify.get('/', async (req, reply) => {
   console.log(req.session.authenticated)
   return reply.sendFile('index.html')
