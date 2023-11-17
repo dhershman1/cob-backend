@@ -21,6 +21,11 @@ const schemas = {
   }
 }
 
+/**
+ * Handles blueprint base routing for the api
+ * @param {Object} server Fastify Server Object
+ * @param {Object} options Options for the routing
+ */
 async function blueprints (server, options) {
   server.post('/blueprint/create', async (req, reply) => {
     if (!req.session.authenticated) {
