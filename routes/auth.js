@@ -1,7 +1,7 @@
 import fp from 'fastify-plugin'
 
 async function routes (server, options) {
-  server.get('/logout', async (req, reply) => {
+  server.get('/api/logout', async (req, reply) => {
     if (req.session.authenticated) {
       req.session.destory(err => {
         if (err) {
@@ -16,7 +16,7 @@ async function routes (server, options) {
     return reply.redirect('/')
   })
 
-  server.post('/login', async (req, reply) => {
+  server.post('/api/login', async (req, reply) => {
     const details = await server.knex('users')
       .select('id', 'username', 'password')
       .where('username', req.body.username)

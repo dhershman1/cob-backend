@@ -1,7 +1,7 @@
 import fp from 'fastify-plugin'
 
 async function userRoutes (server, options) {
-  server.post('/user/create', async (req, reply) => {
+  server.post('/api/user/create', async (req, reply) => {
     try {
       const hash = await server.bcrypt.hash(req.body.password)
 

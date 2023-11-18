@@ -27,7 +27,7 @@ const schemas = {
  * @param {Object} options Options for the routing
  */
 async function blueprints (server, options) {
-  server.post('/blueprint/create', async (req, reply) => {
+  server.post('/api/blueprint/create', async (req, reply) => {
     if (!req.session.authenticated) {
       reply.statusCode = 401
       return 'Invalid or Empty Session'
@@ -51,7 +51,7 @@ async function blueprints (server, options) {
     return { OK: true }
   })
 
-  server.get('/blueprint/:id', async (req, reply) => {
+  server.get('/api/blueprint/:id', async (req, reply) => {
     if (!req.session.authenticated) {
       reply.statusCode = 401
 
@@ -70,6 +70,13 @@ async function blueprints (server, options) {
       .first()
 
     return blueprint
+  })
+
+  server.get('/api/blueprints', async (req, reply) => {
+    const blueprints = server.knex('blueprints')
+      .select('title', 'bp_string', 'thumbnail', 'summary', 'description', 'version')
+
+    return blueprints
   })
 }
 
