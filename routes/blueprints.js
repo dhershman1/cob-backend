@@ -74,7 +74,7 @@ async function blueprints (server, options) {
 
   server.get('/api/blueprints', async (req, reply) => {
     const blueprints = server.knex('blueprints')
-      .select('title', 'bp_string', 'thumbnail', 'summary', 'description', 'version')
+      .select()
 
     return blueprints
   })
