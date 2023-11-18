@@ -12,6 +12,7 @@ import auth from './routes/auth.js'
 import knex from './plugins/database.js'
 import users from './routes/user.js'
 import blueprints from './routes/blueprints.js'
+import tags from './routes/tags.js'
 
 const fastify = Fastify({
   logger: true
@@ -51,6 +52,7 @@ fastify.register(serve, {
 fastify.register(auth)
 fastify.register(users)
 fastify.register(blueprints)
+fastify.register(tags)
 
 fastify.get('/', async (req, reply) => {
   console.log(req.session.authenticated)
